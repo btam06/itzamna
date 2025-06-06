@@ -36,6 +36,26 @@ class Ics {
      */
     protected $prodid;
 
+	/**
+	 * 
+	 */
+	protected $textFormatter;
+
+	/**
+	 * 
+	 */
+	protected $dateFormatter;
+
+
+	/**
+	 * Constructor
+	 */
+	public function __construct()
+	{
+		$this->textFormatter = new TextFormatter();
+		$this->dateFormatter = new DateFormatter();
+	}
+
 
 	/**
 	 * [addEvent description]
@@ -43,6 +63,14 @@ class Ics {
 	 */
 	public function addEvent(EventInterface $event) {
 		$this->events[$event->getICSUid()] = $event;
+		return $this;
+	}
+
+	/**
+	 * 
+	 */
+	public function addTextTranslation(string $key, string $value) {
+		$this->textFormatter->addTranslation($key, $value);
 		return $this;
 	}
 
@@ -83,8 +111,8 @@ class Ics {
 		extract([
 			'events'     => $this->getEvents(),
 			'prodid'     => $this->getProdid(),
-			'formatText' => new TextFormatter(),
-			'formatDate' => new DateFormatter()
+			'formatText' => $this->textFormatter,
+			'formatDate' => $this->dateFormatter
 		]);
 
 		ob_start('trim');
@@ -97,6 +125,7 @@ class Ics {
 
 		return $output;
 	}
+
 
 	/**
 	 * 
