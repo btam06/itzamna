@@ -7,6 +7,9 @@ namespace Itzamna;
  */
 class TextFormatter
 {
+	/**
+	 * @var array $translations List of translations to apply to the text before stripping tags and decoding entities
+	 */
 	protected array $translations = [
 		"</p>"   => '.\n  ',
 		"<br/>"  => '\n',
@@ -16,6 +19,7 @@ class TextFormatter
 		";"      => '\;',
 		":"      => '\:'
 	];
+
 
 	/**
 	 * Add a translation to the formatter
@@ -28,13 +32,17 @@ class TextFormatter
 		$this->translations[$key] = $value;
 	}
 
+
 	/**
+	 * Get the list of configured translations
 	 *
+	 * @return array
 	 */
 	public function getTranslations()
 	{
 		return $this->translations;
 	}
+
 
 	/**
 	 * Format HTML, strip tags, escape various characters for ICS text safety
@@ -52,4 +60,3 @@ class TextFormatter
 	}
 
 }
-
