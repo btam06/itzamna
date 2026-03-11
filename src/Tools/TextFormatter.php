@@ -1,8 +1,9 @@
 <?php
+
 namespace Itzamna;
 
 /**
- * 
+ *
  */
 class TextFormatter
 {
@@ -22,12 +23,15 @@ class TextFormatter
 	 * @param string $key The key to translate
 	 * @param string $value The value to translate to
 	 */
-	public function addTranslation(string $key, string $value) 
+	public function addTranslation(string $key, string $value)
 	{
 		$this->translations[$key] = $value;
 	}
 
-	public function getTranslations() 
+	/**
+	 *
+	 */
+	public function getTranslations()
 	{
 		return $this->translations;
 	}
@@ -38,7 +42,7 @@ class TextFormatter
 	 * @param string $text The string to format
 	 * @return string Formatted text
 	 */
-	public function __invoke($text) 
+	public function __invoke($text)
 	{
 		$text = str_replace(array_keys($this->translations), array_values($this->translations), $text);
 		$text = strip_tags($text, '<a>');
@@ -48,3 +52,4 @@ class TextFormatter
 	}
 
 }
+
