@@ -54,6 +54,16 @@ class TextFormatter
 		unset($this->translations[$key]);
 	}
 
+
+	/**
+	 * Clear all existing translations from the formatter
+	 */
+	public function clearTranslations()
+	{
+		$this->translations = [];
+	}
+
+
 	/**
 	 * Format HTML, strip tags, escape various characters for ICS text safety
 	 *
