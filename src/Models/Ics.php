@@ -1,4 +1,5 @@
 <?php
+
 namespace Itzamna;
 
 use Carbon\Carbon;
@@ -10,17 +11,18 @@ use InvalidArgumentException;
  * @author     Avery Tam [bt] <btam06@gmail.com>
  * @license    MIT
  */
-class Ics {
+class Ics
+{
 	/**
 	 * Default timezone
 	 * @var string
 	 */
-	const DEFAULT_TIMEZONE = 'UTC';
+	public const DEFAULT_TIMEZONE = 'UTC';
 
 	/**
-	 * 
+	 *
 	 */
-	const TEMPLATE_DIRECTORY = 'Templates';
+	public const TEMPLATE_DIRECTORY = 'Templates';
 
 
 	/**
@@ -30,19 +32,19 @@ class Ics {
 	protected $events = array();
 
 
-    /**
-     * [protected description]
-     * @var [type]
-     */
-    protected $prodid;
+	/**
+	 * [protected description]
+	 * @var [type]
+	 */
+	protected $prodid;
 
 	/**
-	 * 
+	 *
 	 */
 	protected $textFormatter;
 
 	/**
-	 * 
+	 *
 	 */
 	protected $dateFormatter;
 
@@ -61,18 +63,12 @@ class Ics {
 	 * [addEvent description]
 	 * @param EventInterface $event [description]
 	 */
-	public function addEvent(EventInterface $event) {
+	public function addEvent(EventInterface $event)
+	{
 		$this->events[$event->getICSUid()] = $event;
 		return $this;
 	}
 
-	/**
-	 * 
-	 */
-	public function addTextTranslation(string $key, string $value) {
-		$this->textFormatter->addTranslation($key, $value);
-		return $this;
-	}
 
 	/**
 	 * [getEvents description]
@@ -83,11 +79,23 @@ class Ics {
 		return $this->events;
 	}
 
+
+	/**
+	 * Get the TextFormatter instance
+	 * @return TextFormatter
+	 */
+	public function getTextFormatter()
+	{
+		return $this->textFormatter;
+	}
+
+
 	/**
 	 * [setProdid description]
 	 * @param [type] $prodid [description]
 	 */
-	public function setICSProdid($prodid) {
+	public function setICSProdid($prodid)
+	{
 		$this->prodid = strip_tags($prodid);
 		return $this;
 	}
@@ -96,7 +104,8 @@ class Ics {
 	 * [getProdid description]
 	 * @return [type] [description]
 	 */
-	public function getProdid() {
+	public function getProdid()
+	{
 		return $this->prodid;
 	}
 
@@ -105,7 +114,8 @@ class Ics {
 	 *
 	 * @return string The ICS file as a string
 	 */
-	public function make() {
+	public function make()
+	{
 		$timestamp = new Carbon();
 
 		extract([
@@ -128,9 +138,10 @@ class Ics {
 
 
 	/**
-	 * 
+	 *
 	 */
-	protected function getTemplate($template) {
+	protected function getTemplate($template)
+	{
 		$path = realpath(__DIR__ . '/../' . self::TEMPLATE_DIRECTORY . '/' . $template);
 
 		if (file_exists($path)) {
@@ -144,7 +155,8 @@ class Ics {
 	 * [padTimezoneOffset description]
 	 * @param [type] $gmt_offset [description]
 	 */
-	private function padTimezoneOffset($gmt_offset) {
+	private function padTimezoneOffset($gmt_offset)
+	{
 		$gmt_offset  = number_format(floatval($gmt_offset), 2, '', '');
 		$gmt_offset  = strval($gmt_offset);
 		$sign        = strpos($gmt_offset, '-') === 0 ? '-' : '';
