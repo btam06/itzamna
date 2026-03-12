@@ -11,13 +11,13 @@ class TextFormatter
 	 * @var array $translations List of translations to apply to the text before stripping tags and decoding entities
 	 */
 	protected array $translations = [
+		".</p>"   => '\n  ',
 		"</p>"   => '.\n  ',
 		"<br/>"  => '\n',
 		"\r\n"   => '\n',
 		"&nbsp;" => ' ',
 		","      => '\,',
 		";"      => '\;',
-		":"      => '\:'
 	];
 
 
@@ -43,6 +43,16 @@ class TextFormatter
 		return $this->translations;
 	}
 
+
+	/**
+	 * Remove a translation from the formatter
+	 *
+	 * @param string $key The translation key to remove
+	 */
+	public function removeTranslation(string $key)
+	{
+		unset($this->translations[$key]);
+	}
 
 	/**
 	 * Format HTML, strip tags, escape various characters for ICS text safety
